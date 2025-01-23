@@ -8,11 +8,11 @@ import re
 from scipy.spatial.distance import cosine
 import pandas as pd
 
-# import nltk
-# nltk.download('stopwords')
+import nltk
+nltk.download('stopwords')
 
 # import nltk
-# nltk.download('punkt')
+nltk.download('punkt')
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
