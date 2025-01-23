@@ -8,6 +8,9 @@ import re
 from scipy.spatial.distance import cosine
 import pandas as pd
 
+import os
+os.environ["TORCH_FORCE_LAZY_MODULES"] = "0"
+
 import nltk
 nltk.download('stopwords')
 
