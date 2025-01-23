@@ -1,8 +1,8 @@
-streamlit==1.41.1
-pymupdf==1.25.2
-sentence-transformers==3.3.1
-transformers==4.48.1
-rake-nltk==1.0.6
+streamlit
+pymupdf
+sentence-transformers
+transformers
+rake-nltk
 nltk
 numpy
 scipy
