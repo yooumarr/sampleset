@@ -1,0 +1,24 @@
+RAG model for Q/A chatbot
+This document is aims to explain the working and building of a RAG chatbot for answering questions. The chatbot processes financial terms and insights, particularly from Profit & Loss (P&L) tables extracted from PDF documents. The chatbot is built using Python libraries such as PyMuPDF, rake-nltk, sentence-transformers, and transformers.
+
+Model architecture and Data  Extraction and Preprocessing
+Step1:
+First of all using Fitz library, the text from PDF is extracted and then to clean up the text, Regular Expressions are used.
+
+Step2: 
+Once the text is extracted and cleaned, Using RecursiveCharacterTextSplitter from Lngchain, the text is split into smaller chunks to work with easily. 
+ Then using rake_nltk library common phrases are extracted from texts to form better embeddings.
+
+Step3:
+Here vector embeddings are formed using SentenceTransformer. These embeddings are then processed and stored in an excel file. 
+
+Step4: 
+Here using transformers from Hugging Face, a pretrained model named EleutherAI/gpt-neo-1.3B is used to generate the response bsed on query and context. 
+
+Sometimes the query length exceeds the limit an so to prevent it a function is used to truncate the input. 
+
+Finally a while loop is used to mimic as a chatbot.  
+
+How the generative responses are created?
+The pretrained model uses the context provided and the query to generate responses. Using a pretrained model helps to use the reasoning engine of a LLM. 
+
