@@ -112,7 +112,7 @@ if uploaded_file and query:
     cleaned_text = preprocess_pdf_text(pdf_text)
     chunks = chunk_text(cleaned_text)
     chunk_phrases = get_phrase_embeddings(chunks)
-    relevant_chunks = find_relevant_chunks(query, chunk_phrases)
+    relevant_chunks = find_relevant_chunks(query, chunks, chunk_phrases)
     context = "\n\n".join(relevant_chunks)
     answer = generate_response(context, query)
 
