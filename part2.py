@@ -13,7 +13,7 @@ import os
 os.environ["TORCH_FORCE_LAZY_MODULES"] = "0"
 
 nltk.download('stopwords')
-nltk.download('punkt')
+nltk.download('punkt_tab')
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
