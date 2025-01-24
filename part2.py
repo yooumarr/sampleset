@@ -8,15 +8,15 @@ import re
 from scipy.spatial.distance import cosine
 import pandas as pd
 import nltk
-
 import os
+import warnings
+
+warnings.filterwarnings("ignore", category=UserWarning)
+
 os.environ["TORCH_FORCE_LAZY_MODULES"] = "0"
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
-
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning)
 
 # Load models
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -34,8 +34,6 @@ def extract_text_from_pdf(uploaded_file):
         pdf_text[page_number + 1] = page.get_text()
     document.close()
     return pdf_text
-
-
 
 def preprocess_pdf_text(pdf_text):
     processed_text = {}
@@ -84,7 +82,6 @@ def find_relevant_chunks(query, page_chunks, phrase_embeddings):
     # Sort chunks by similarity and take the top 5
     top_chunks = sorted(chunk_similarities.items(), key=lambda x: x[1], reverse=True)[:5]
 
-    # Correctly unpack the tuple
     selected_chunks = [
         page_chunks[int(page)][int(chunk_number) - 1] for ((page, chunk_number), _) in top_chunks
     ]
@@ -119,27 +116,4 @@ if uploaded_file and query:
     st.write(f"**Answer:** {answer}")
     st.write("**Relevant Context:**")
     st.write(context)
-
-# import gradio as gr
-
-# def chatbot_interface(pdf_file, query):
-#     pdf_text = extract_text_from_pdf(pdf_file)
-#     cleaned_text = preprocess_pdf_text(pdf_text)
-#     chunks = chunk_text(cleaned_text)
-#     chunk_phrases = get_phrase_embeddings(chunks)
-#     relevant_chunks = find_relevant_chunks(query, chunks, chunk_phrases)
-#     relevant_chunks = find_relevant_chunks(query, chunks, chunk_phrases)
-#     context = "\n\n".join(relevant_chunks)
-#     answer = generate_response(context, query)
-#     return answer, context
-
-# iface = gr.Interface(
-#     fn=chatbot_interface,
-#     inputs=[gr.File(label="Upload PDF"), gr.Textbox(label="Enter Query")],
-#     outputs=[gr.Textbox(label="Answer"), gr.Textbox(label="Relevant Context")],
-#     title="Financial QA Chatbot",
-#     description="Upload a financial PDF and ask questions about it."
-# )
-
-# iface.launch()
 
