@@ -7,15 +7,14 @@ import numpy as np
 import re
 from scipy.spatial.distance import cosine
 import pandas as pd
+import nltk
 
 import os
 os.environ["TORCH_FORCE_LAZY_MODULES"] = "0"
 
-import nltk
 nltk.download('stopwords')
-
-# import nltk
 nltk.download('punkt')
+
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
