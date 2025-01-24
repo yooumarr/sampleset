@@ -26,14 +26,16 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 generation_model = AutoModelForCausalLM.from_pretrained(model_name)
 rake = Rake()
 
-def extract_text_from_pdf(pdf_file):
+def extract_text_from_pdf(uploaded_file):
     pdf_text = {}
-    document = fitz.open(pdf_file)  # Open the file using its path
+    # Open the uploaded file as a BytesIO stream
+    document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     for page_number in range(document.page_count):
         page = document.load_page(page_number)
         pdf_text[page_number + 1] = page.get_text()
     document.close()
     return pdf_text
+
 
 
 def preprocess_pdf_text(pdf_text):
